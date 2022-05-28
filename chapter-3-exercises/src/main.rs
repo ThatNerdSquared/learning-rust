@@ -17,26 +17,7 @@ fn main() {
 
     match selection.as_str().trim() {
         "1" => temperature_converter(),
-        "2" => {
-            println!("Which Fibonacci number do you want?");
-            let mut num = String::new();
-            io::stdin()
-                .read_line(&mut num)
-                .expect("Failed to read line");
-
-            let num: i32 = num.trim().parse::<i32>().unwrap();
-            let mut generated_nums: Vec<i32> = Vec::with_capacity(num as usize);
-            generated_nums.push(0);
-            generated_nums.push(1);
-
-            for i in 2..num {
-                let first_index = i - 1;
-                let second_index = i- 2;
-                let new_num = generated_nums[first_index as usize] + generated_nums[second_index as usize];
-                generated_nums.push(new_num);
-            }
-            println!("{}", generated_nums.last().unwrap())
-        }
+        "2" => fibonacci_generator(),
         "3" => {
             println!("Twelve Days of Christmas");
         }
@@ -89,4 +70,29 @@ fn celsius_to_fahrenheit(cel_temp: i32) -> i32 {
 
 fn fahrenheit_to_celsius(fahren_temp: i32) -> i32 {
     ((fahren_temp - 32) * 5) / 9
+}
+
+fn fibonacci_generator() {
+    println!("Which Fibonacci number do you want?");
+    let mut num = String::new();
+    io::stdin()
+        .read_line(&mut num)
+        .expect("Failed to read line");
+
+    let num: i32 = num.trim().parse::<i32>().unwrap();
+    let mut generated_nums: Vec<i32> = Vec::with_capacity(num as usize);
+    generated_nums.push(0);
+    generated_nums.push(1);
+
+    for i in 2..num {
+        let first_index = i as usize - 1;
+        let second_index: usize = i as usize - 2;
+        let new_num = generated_nums[first_index] + generated_nums[second_index];
+        generated_nums.push(new_num);
+    }
+    println!(
+        "#{} in the Fibonacci sequence is: {}",
+        num,
+        generated_nums.last().unwrap()
+    )
 }
