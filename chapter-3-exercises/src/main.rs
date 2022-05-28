@@ -18,9 +18,7 @@ fn main() {
     match selection.as_str().trim() {
         "1" => temperature_converter(),
         "2" => fibonacci_generator(),
-        "3" => {
-            println!("Twelve Days of Christmas");
-        }
+        "3" => twelve_days_of_christmas(),
         _ => {
             println!("Operation not found: {}", selection.as_str());
         }
@@ -95,4 +93,42 @@ fn fibonacci_generator() {
         num,
         generated_nums.last().unwrap()
     )
+}
+
+fn twelve_days_of_christmas() {
+    let numbered_lyrics = [
+        "A partridge in a pear tree",
+        "Two turtle-doves",
+        "Three French hens",
+        "Four calling birds",
+        "Five golden rings (five golden rings)",
+        "Six geese a laying",
+        "Seven swans a swimming",
+        "Eight maids a milking",
+        "Nine ladies dancing",
+        "Ten lords a-leaping",
+        "I sent 11 pipers piping",
+        "12 drummers drumming",
+    ];
+
+    println!("~~~Twelve Days of Christmas~~~");
+    for i in 0..=11 {
+        let num = i + 1;
+        let cardinal = match num {
+            1 => "st",
+            2 => "nd",
+            3 => "rd",
+            _ => "th",
+        };
+        println!(
+            "On the {}{} day of Christmas\nMy true love sent to me",
+            num, cardinal
+        );
+
+        for item in (&numbered_lyrics[0..=i]).iter().rev() {
+            println!("{}", item)
+        }
+        println!("");
+    }
+    println!("And a partridge in a pear tree")
 }
